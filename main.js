@@ -271,7 +271,7 @@ eventHandler(zplayerAudioPlayer,"play",function(){
         titleChange(zplayerPlayPauseBtn,"pause");
   classNameAdd(zplayerPlayPauseBtn,"paused");
 // uncomment the line below to initialize the visualizer 
-  //   initVisualizer();
+    initVisualizer();
   
 });
 eventHandler(zplayerAudioPlayer,"pause",function(){
@@ -379,39 +379,39 @@ function eventHandler(el,evt,func){
 }
 
 // uncomment the following lines to start the visualizer
-// const AudioCtx=window.AudioContext || window.webkitAudioContext;
-// const audioCtx=new AudioCtx();
-// let audioSource,analyser;
-//     audioSource=audioCtx.createMediaElementSource(zplayerAudioPlayer);
-// function initVisualizer(){
+const AudioCtx=window.AudioContext || window.webkitAudioContext;
+const audioCtx=new AudioCtx();
+let audioSource,analyser;
+    audioSource=audioCtx.createMediaElementSource(zplayerAudioPlayer);
+function initVisualizer(){
 
-//   analyser=audioCtx.createAnalyser();
-//   audioSource.connect(analyser);
-//   analyser.connect(audioCtx.destination);
-//   analyser.fftSize=256;
-//   let bufferLength=analyser.frequencyBinCount;
-//   let dataArray=new Uint8Array(bufferLength);
-//   let barWidth=canvas.width/bufferLength;
-//   let barHeight,x=0;
-//   function animate(){
-//     x=0;
-//     ctx.clearRect(0,0,canvas.width,canvas.height);
-//     analyser.getByteFrequencyData(dataArray);
-//      drawVisualizer(bufferLength,x,barHeight,barWidth,dataArray);
-//     requestAnimationFrame(animate)
-//   }
-//   animate();
-// }
-// function drawVisualizer(bufferLength,x,barHeight,barWidth,dataArray){
-//      for( let i=0;i < bufferLength;i++) {
-//       barHeight=dataArray[i] * 0.7;
-//   ctx.save();
-//   ctx.translate(canvas.width/2,canvas.height/2);
-//   ctx.rotate(i * Math.PI * 4/ bufferLength);
-//   let hue=i * barHeight/2;
-//       ctx.fillStyle=`hsl(${hue},100%,50%)`;
-//       ctx.fillRect(0,0,barWidth,barHeight);
-//       x+=barWidth;
-//     ctx.restore();
-//     } 
-// }
+  analyser=audioCtx.createAnalyser();
+  audioSource.connect(analyser);
+  analyser.connect(audioCtx.destination);
+  analyser.fftSize=256;
+  let bufferLength=analyser.frequencyBinCount;
+  let dataArray=new Uint8Array(bufferLength);
+  let barWidth=canvas.width/bufferLength;
+  let barHeight,x=0;
+  function animate(){
+    x=0;
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    analyser.getByteFrequencyData(dataArray);
+     drawVisualizer(bufferLength,x,barHeight,barWidth,dataArray);
+    requestAnimationFrame(animate)
+  }
+  animate();
+}
+function drawVisualizer(bufferLength,x,barHeight,barWidth,dataArray){
+     for( let i=0;i < bufferLength;i++) {
+      barHeight=dataArray[i] * 0.7;
+  ctx.save();
+  ctx.translate(canvas.width/2,canvas.height/2);
+  ctx.rotate(i * Math.PI * 4/ bufferLength);
+  let hue=i * barHeight/2;
+      ctx.fillStyle=`hsl(${hue},100%,50%)`;
+      ctx.fillRect(0,0,barWidth,barHeight);
+      x+=barWidth;
+    ctx.restore();
+    } 
+}
